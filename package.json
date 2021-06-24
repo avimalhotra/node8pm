@@ -11,7 +11,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "colors": "^1.4.0",
     "dotenv": "^10.0.0",
     "netest": "^1.0.6",
     "network-list": "^1.1.5",
