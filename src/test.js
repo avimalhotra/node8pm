@@ -9,4 +9,4 @@ let area=pi*r*r;
 //exports.x=r;
 //exports.y=area;
 
-exports.data={ r:r, area:area };
+//exports.data={ r:r, area:area };
