@@ -5,8 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTTP</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div class="container">
     <h1>Hello HTTP Module</h1>
     <nav>
         <a href="/">Home</a>
@@ -14,5 +16,21 @@
     </nav>
     
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae dolore excepturi provident asperiores tempora, in animi debitis repellendus laudantium deserunt accusantium ducimus dolorum at, totam iure. Quasi accusamus iusto ea.</p>
+    <img src="img/event-loop.png" alt="Event Loop" width="300">
+
+    <h3>HTTP get</h3>
+    <form action="/getdata" method="GET">
+        <label>Name: <input type="text" name="name" required></label>
+        <label>Age: <input type="number" name="age" required></label>
+        <button>Send</button>
+    </form>
+     <br><hr> <br>
+    <h3>HTTP POST</h3>
+    <form action="/postdata" method="POST">
+        <label>Username: <input type="text" name="name" required></label>
+        <label>Password: <input type="password" name="pass" required></label>
+        <button>Send</button>
+    </form>
+    </div>
 </body>
 </html>

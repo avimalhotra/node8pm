@@ -1,47 +1,41 @@
-const http=require('http');
-const fs=require('fs');
+require('dotenv').config();
 const path=require('path');
-const dotenv=require("dotenv").config();
+const express=require('express');
 
-let data=["jan","feb","mar","apr"];
+const app=express();
+app.use(express.static(path.resolve('src/public')));
 
-const server=http.createServer((req,res)=>{
-    if( req.url=="/app" && req.method=="GET"){
-         //res.write("hello http");
-        //res.write(req.url);
-        //res.write(req.method);
-        //res.write(req.headers.host);
-
-        //res.statusCode=200;
-        //res.setHeader('Content-Type','text/html');
-        res.writeHead(200,{'Content-Type':'text/html'});
-
-        res.write("<h1>Hello HTTP</h1>");
-        res.write("<ol>");
-        data.forEach((i)=>{
-            res.write("<li>"+ i+ "</li>");
-        })
-        res.write("</ol>");
-        res.end();
-    }
-    else if(req.url=="/" && req.method=="GET"){
-        fs.readFile('src/public/index.html',(err,data)=>{
-            if(err){
-                res.writeHead(200,{'Content-Type':'text/html'});
-                res.end(err.toString());
-            }
-            else{
-                res.writeHead(200,{'Content-Type':'text/html'});
-                res.end(data);
-            }
-        });
-    }
-    else{
-        res.statusCode=404;
-        res.end("404, Page not found");
-    }
+app.use((req,res,next)=>{
+    console.log(`login at ${Date.now()} `);
+    next();
 });
 
-server.listen(process.env.PORT,()=>{
-    console.log(`Server running at http://127.0.0.1:${process.env.PORT}`)
-}); 
+
+app.get('/',(req,res)=>{
+    res.send("hello express");
+});
+app.get('/login',(req,res)=>{
+    res.send("please login");
+});
+app.get('/getdata',(req,res)=>{
+
+    let name=req.query.name;
+    let age=req.query.age;
+    
+
+    //res.send(req.query);
+    res.json({data:req.query});
+});
+app.post('/postdata',(req,res)=>{
+    res.send("data posted");
+});
+
+
+/* Wildcard Handler */ 
+app.get('/**',(req,res)=>{
+    res.status(404).send("404, Page not found")
+});
+
+app.listen(process.env.PORT,()=>{
+    console.log(`Server running at http://127.0.0.1:${process.env.PORT}`);
+})
