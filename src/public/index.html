@@ -49,6 +49,31 @@
         <label>Password: <input type="password" name="pass" required></label>
         <button>Send</button>
     </form>
+    <br>
+    <h3>AJAX data</h3>
+    <table class="table table-bordered">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Price</th>
+        </tr>
+    </table>
+    
     </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(function(){
+    $.ajax({method:"GET",url:"/api"}).done(function(data){
+        
+        data.forEach(function(i){
+            $("table").append("<tr><td>"+ i.name+"</td><td>"+i.type+"</td><td>"+ i.price+"</td></tr>")
+        })
+
+    }).fail(function() {
+        console.log( "error" );
+    });      
+});
+</script>
 </body>
 </html>
