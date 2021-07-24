@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const cookieParser=require('cookie-parser');
 const session=require('express-session');
 const parseurl=require('parseurl');
+const ejs=require('ejs');
+const LRU = require('lru-cache');
+ejs.cache =new LRU(100);
 
 
 const app=express();
@@ -23,6 +26,8 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false })); 
 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'public/views'));
 app.use(express.static(path.resolve('src/public')));
 
 app.use((req,res,next)=>{
@@ -43,8 +48,14 @@ app.use((req,res,next)=>{
 app.get('/',(req,res)=>{
     //res.send(req.url);
     //res.send(req.sessionID);
-    res.send( "Page Views : " +req.session.views['/']+ " times");
+    //res.send( "Page Views : " +req.session.views['/']+ " times");
+    res.render('index',{ name:"EJS", version: '3.1.6', user:{ name:"avi", id:212}});
 });
+
+app.get('/about',(req,res)=>{
+    res.render("about",{name:"EJS", version: '3.1.6', para:"text for about", month:['jan','feb','mar','apr']}  );
+});
+
 app.get('/setcookie',(req,res)=>{
     res.cookie("login",Date.now(),{maxAge:86400});
     res.send("cookie saved");
